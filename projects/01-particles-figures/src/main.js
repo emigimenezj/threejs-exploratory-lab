@@ -78,7 +78,24 @@ objLoader.load('CartoonRocket.obj', function(object){
       
       child.geometry.scale(scale, scale, scale);
       rocketPoints = THREE.GeometryUtils.randomPointsInBufferGeometry(child.geometry, particleCount);
-      createVertices(rocketParticles, rocket,Points, yOffset, 2); 
+      createVertices(rocketParticles, rocketPoints, yOffset, 2); 
+    }
+  });
+});
+
+objLoader = new THREE.OBJLoader();
+objLoader.setPath(codepenAssetUrl);
+objLoader.load('Astronaut.obj', function(object){
+  object.traverse(function(child){
+    if(child instanceof THREE.Mesh) {
+      let scale = 4.6;
+      let area = new THREE.Box3();
+      area.setFromObject(child);
+      let yOffset = (area.max.y * scale) / 2;
+      
+      child.geometry.scale(scale, scale, scale);
+      spacemanPoints = THREE.GeometryUtils.randomPointsInBufferGeometry(child.geometry, particleCount);
+      createVertices(spacemanParticles, spherePoints, yOffset, 3); 
     }
   });
 });
