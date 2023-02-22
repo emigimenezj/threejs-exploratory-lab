@@ -1,5 +1,3 @@
-import './index.css'
-
 const numberOfParticles = 6000;
 
 const particleImage = 'https://motionarray.imgix.net/preview-34649aJ93evd9dG_0008.jpg?w=660&fit=max&auto=format';
@@ -35,7 +33,8 @@ let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHei
 camera.position.y = 25;
 camera.position.z = 36;
 
-let controls = new OrbitControls(camera);
+
+let controls = new THREE.OrbitControls(camera);
 controls.update();
 
 let particleCount = numberOfParticles;
@@ -133,7 +132,7 @@ let particleSystem = new THREE.PointCloud(
   pMaterial
 );
 
-particleSystem.setParticles = true;
+particleSystem.sortParticles = true;
 
 scene.add(particleSystem);
 
@@ -218,5 +217,3 @@ function handleTriggers(disable) {
     }
   }
 }
-
-
