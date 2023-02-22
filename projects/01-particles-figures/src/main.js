@@ -1,7 +1,7 @@
 const numberOfParticles = 6000;
 
 const particleImage = 'https://motionarray.imgix.net/preview-34649aJ93evd9dG_0008.jpg?w=660&fit=max&auto=format';
-const particleColor = '0xFFFFFF';
+const particleColor = 'rgb(255,0,255)';
 const particleSize = 0.2;
 
 const defaultAnimationSpeed = 1;
@@ -47,11 +47,11 @@ let cubeParticles = new THREE.Geometry();
 let rocketParticles = new THREE.Geometry();
 let spacemanParticles = new THREE.Geometry();
 
-let pMaterial = new THREE.PointCloudMaterial({
+let pMaterial = new THREE.PointsMaterial({
   color: particleColor,
   size: particleSize,
-  map: THREE.ImageUtils.loadTexture(particleImage),
-  blending: THREE.AdditiveBelnding,
+  map: new THREE.TextureLoader().load(particleImage),
+  blending: THREE.AdditiveBlending,
   transparent: true
 });
 
@@ -127,7 +127,7 @@ function createVertices(emptyArray, points, yOffset = 0, trigger = null) {
   }
 }
 
-let particleSystem = new THREE.PointCloud(
+let particleSystem = new THREE.Points(
   particles,
   pMaterial
 );
@@ -177,7 +177,7 @@ function toSpaceman() {
   morphTo(spacemanParticles);
 }
 
-function morphTo(newParticles, color = '0xFFFFFF') {
+function morphTo(newParticles, color = '0xffffff') {
   TweenMax.to(animationVars, 0.3, {
     ease: Power4.easeIn,
     speed: fullSpeed,
