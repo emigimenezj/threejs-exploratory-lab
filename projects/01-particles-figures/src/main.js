@@ -1,7 +1,3 @@
-import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import Stats from 'three/examples/jsm/libs/stats.module'
-
 import './index.css'
 
 const numberOfParticles = 6000;
@@ -39,4 +35,50 @@ let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHei
 camera.position.y = 25;
 camera.position.x = 36;
 
+let controls = new OrbitControls(camera);
+controls.update();
 
+let particleCount = numberOfParticles;
+
+let spherePoints, cubePoints, rocketPoints, spacemanPoints;
+
+let particles = new THREE.Geometry();
+let sphereParticles = new THREE.Geometry();
+let cubeParticles = new THREE.Geometry();
+let rocketParticles = new THREE.Geometry();
+let spacemanParticles = new THREE.Geometry();
+
+let pMaterial = new THREE.PointCloudMaterial({
+  color: particleColor,
+  size: particleSize,
+  map: THREE.ImageUtils.loadTexture(particleImage),
+  blending: THREE.AdditiveBelnding,
+  transparent: true
+});
+
+let geometry = new THREE.SphereGeometry(5, 30, 30);
+
+spherePoints = THREE.GeometryUtils.randomPointsInGeometry(geometry, particleCount);
+
+geometry = new THREE.BoxGeometry(9, 9, 9);
+
+cubePoints = THREE.GeometryUtils.randomPointsInGeometry(geometry,particleCount);
+
+const codepenAssetUrl = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/605067/';
+
+let objLoader = new THREE.OBJLoader();
+objLoader.setPath(codepenAssetUrl);
+objLoader.load('CartoonRocket.obj', function(object){
+  object.traverse(function(child){
+    if(child instanceof THREE.Mesh) {
+      let scale = 2.1;
+      let area = new THREE.Box3();
+      area.setFromObject(child);
+      let yOffset = (area.max.y * scale) / 2;
+      
+      child.geometry.scale(scale, scale, scale);
+      rocketPoints = THREE.GeometryUtils.randomPointsInBufferGeometry(child.geometry, particleCount);
+      createVertices(rocketParticles, rocket,Points, yOffset, 2); 
+    }
+  });
+});
