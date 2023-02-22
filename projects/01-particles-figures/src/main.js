@@ -1,4 +1,5 @@
 import { gsap, Power4, Power2, Elastic } from 'gsap';
+import * as Stats from 'stats.js';
 
 const numberOfParticles = 6000;
 
@@ -14,6 +15,7 @@ const triggers = triggersContainer.querySelectorAll('span');
 
 let stats = new Stats();
 stats.showPanel(0);
+document.body.appendChild(stats.dom);
 
 let renderer = new THREE.WebGLRenderer();
 renderer.setPixelRatio(window.devicePixelRatio);
