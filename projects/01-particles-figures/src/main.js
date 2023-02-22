@@ -1,3 +1,5 @@
+import { gsap, Power4, Power2, Elastic } from 'gsap';
+
 const numberOfParticles = 6000;
 
 const particleImage = 'https://motionarray.imgix.net/preview-34649aJ93evd9dG_0008.jpg?w=660&fit=max&auto=format';
@@ -178,28 +180,31 @@ function toSpaceman() {
 }
 
 function morphTo(newParticles, color = '0xffffff') {
-  TweenMax.to(animationVars, 0.3, {
+  gsap.to(animationVars, {
     ease: Power4.easeIn,
     speed: fullSpeed,
-    onComplete: slowDown
+    onComplete: slowDown,
+    duration: 0.3
   });
   particleSystem.material.color.setHex(color);
 
   for (let i = 0; i < particles.vertices.length; i++) {
-    TweenMax.to(particles.vertices[i], 4, {
+    gsap.to(particles.vertices[i], {
       ease: Elastic.easeOut.config(1, 0.75),
       x: newParticles.vertices[i].x,
       y: newParticles.vertices[i].y,
-      z: newParticles.vertices[i].z
+      z: newParticles.vertices[i].z,
+      duration: 4
     });
   }
 }
 
 function slowDown() {
-  TweenMax.to(animationVars, 4, {
+  gsap.to(animationVars, {
     ease: Power2.easeOut,
     speed: normalSpeed,
-    delay: 1
+    delay: 1,
+    duration: 4
   });
 }
 
