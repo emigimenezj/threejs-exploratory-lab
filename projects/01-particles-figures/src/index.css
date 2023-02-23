@@ -26,6 +26,9 @@ span {
 
 span[data-disabled="true"] {
   opacity: 0.3;
+}
+
+span[data-disabled="false"] {
   pointer-events: none;
 }
 
