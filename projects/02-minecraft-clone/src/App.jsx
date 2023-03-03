@@ -1,8 +1,13 @@
+import { Sky } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
 
 function App() {
 
   return (
-    <h1>MINECRAFT</h1>
+    <Canvas>
+      <Sky sunPosition={[100,100,20]} />
+      <ambientLight intensity={0.5} />
+    </Canvas>
   );
 }
 
