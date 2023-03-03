@@ -4,11 +4,18 @@ import { useEffect, useRef } from 'react';
 import { Vector3 } from 'three';
 import { useKeyboard } from '../hooks/useKeyboard';
 
+const CHARACTER_SPEED = 5;
+const CHARACTER_JUMP_FORCE = 2;
+
 export function Player() {
-  const actions = useKeyboard();
 
-
-  console.log(actions);
+  const {
+    moveBackward,
+    moveForward,
+    moveLeft,
+    moveRight,
+    jump
+  } = useKeyboard();
 
   const { camera } = useThree();
   const [ref, api] = useSphere(() => ({
@@ -39,7 +46,39 @@ export function Player() {
         pos.current[2]
       )
     );
-    api.velocity.set(0, 0, -1);
+
+    const direction = new Vector3();
+    const frontVector = new Vector3(
+      0,
+      0,
+      (moveBackward?1:0) - (moveForward?1:0)
+    );
+
+    const sideVector = new Vector3(
+      (moveLeft?1:0) - (moveRight?1:0),
+      0,
+      0
+    );
+
+    direction
+      .subVectors(frontVector, sideVector)
+      .normalize()
+      .multiplyScalar(CHARACTER_SPEED)
+      .applyEuler(camera.rotation);
+
+    api.velocity.set(
+      direction.x,
+      vel.current[1],
+      direction.z
+    );
+
+    if (jump && Math.abs(vel.current[1]) < 0.05) {
+      api.velocity.set(
+        vel.current[0],
+        CHARACTER_JUMP_FORCE,
+        vel.current[2]
+      );
+    }
   });
 
   return (
