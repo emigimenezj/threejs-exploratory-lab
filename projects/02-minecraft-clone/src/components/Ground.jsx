@@ -1,5 +1,5 @@
 import { usePlane } from '@react-three/cannon';
-import { grassTexture } from '../images/textures';
+import { grass as grassTexture } from '../images/textures';
 
 export function Ground() {
 	const [ref] = usePlane(() => ({
