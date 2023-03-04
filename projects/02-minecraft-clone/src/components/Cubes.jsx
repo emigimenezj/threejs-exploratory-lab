@@ -1,14 +1,11 @@
+import { useContext } from 'react';
+import { CubesContext } from '../contexts';
+
 import { Cube } from './Cube';
-
-
 
 export function Cubes() {
 
-  const cubes = [{
-    id: 1,
-    pos: [1, 1, 1],
-    texture: 'dirt'
-  }];
+  const cubes = useContext(CubesContext);
 
   return cubes.map( ({id, pos, texture}) => (
     <Cube
