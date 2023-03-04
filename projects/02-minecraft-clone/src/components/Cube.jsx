@@ -8,7 +8,7 @@ export function Cube({ id, position, texture }) {
 
   return (
     <mesh ref={ref}>
-      <boxBufferGeometry attach='geometry' />
+      <boxGeometry attach='geometry' />
       <meshStandardMaterial color='white' attach='material' />
     </mesh>
   );

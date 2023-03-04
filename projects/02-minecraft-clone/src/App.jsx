@@ -16,8 +16,8 @@ function App() {
         <ambientLight intensity={0.5} />
         <Fpv />
         <Physics>
-          <Cubes />
           <Player />
+          <Cubes />
           <Ground />
         </Physics>
       </Canvas>
