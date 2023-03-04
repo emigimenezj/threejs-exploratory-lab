@@ -5,7 +5,7 @@ import { Cube } from './Cube';
 
 export function Cubes() {
 
-  const cubes = useContext(CubesContext);
+  const { cubes } = useContext(CubesContext);
 
   return cubes.map( ({id, pos, texture}) => (
     <Cube
